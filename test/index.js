@@ -1385,6 +1385,136 @@ const tests = {
 
     AsyncAction.fire(2)
   },
+
+  'listen expects function'() {
+    assert.throws(() => {
+      myStore.listen(null)
+    }, TypeError, 'listen expects a function')
+  },
+
+  'lots of listens'() {
+    const ImportKeysActions = alt.generateActions('change', 'saved')
+
+    const call = sinon.spy()
+
+    const BalanceClaimStore = alt.createStore(class {
+      constructor() {
+        this.bindListeners({
+          onRefreshBalanceClaims: ImportKeysActions.saved,
+          onLoadMyAccounts: [
+            ImportKeysActions.change, ImportKeysActions.saved
+          ]
+        })
+      }
+
+      onRefreshBalanceClaims() {
+        call()
+      }
+
+      onLoadMyAccounts() {
+        call()
+      }
+    })
+
+    ImportKeysActions.saved()
+
+    assert(call.calledTwice, 'multiple action handlers are ok')
+  },
+
+  'dispatching action creators'() {
+    const action = {
+      id: 'hello',
+      dispatch(data) {
+        return data
+      }
+    }
+
+    const alt = new Alt()
+
+    class Store {
+      constructor() {
+        this.bindAction(action, this.hello.bind(this))
+        this.state = { x: null }
+      }
+
+      hello(data) {
+        this.setState({ x: data })
+      }
+    }
+
+    const store = alt.createStore(Store)
+
+    assert(store.getState().x === null, 'x is null')
+
+    alt.dispatch(action, 3)
+
+    assert(store.getState().x === 3, '3 was dispatched')
+
+    alt.dispatch(action, 4)
+
+    assert(store.getState().x === 4, '4 was dispatched')
+
+    alt.dispatch(action, undefined)
+
+    assert(store.getState().x === 4, 'undefined means it wont dispatch')
+  },
+
+  'dispatching async action creators'(done) {
+    const action = {
+      id: 'hello',
+      dispatch(data) {
+        return dispatch => dispatch(done)
+      }
+    }
+
+    const alt = new Alt()
+
+    class Store {
+      constructor() {
+        this.bindAction(action, this.hello)
+      }
+
+      hello(done) {
+        done()
+      }
+    }
+
+    const store = alt.createStore(Store)
+    alt.dispatch(action)
+  },
+
+  'is fsa'(done) {
+    const res = alt.dispatcher.register((x) => {
+      assert.isDefined(x.type, 'there is a type')
+      assert.isDefined(x.payload, 'there is a payload')
+      assert.isDefined(x.meta, 'meta exists')
+      assert.isString(x.meta.dispatchId, 'meta contains a unique dispatch id')
+
+      assert(x.payload === 'Jane', 'the payload is correct')
+
+      alt.dispatcher.unregister(res)
+
+      done()
+    })
+
+    myActions.updateName('Jane')
+  },
+
+  'can dispatch fsa'(done) {
+    const res = alt.dispatcher.register((x) => {
+      assert.isDefined(x.type, 'there is a type')
+      assert(x.type === 'owl')
+      assert.isDefined(x.payload, 'there is a payload')
+      assert(x.payload === 'Tawny')
+      assert.isString(x.meta.dispatchId, 'meta contains a unique dispatch id')
+
+      alt.dispatcher.unregister(res)
+
+      done()
+    })
+
+    alt.dispatch({ type: 'owl', payload: 'Tawny' })
+  },
 }
 
 export default tests
