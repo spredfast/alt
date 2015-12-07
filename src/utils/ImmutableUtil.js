@@ -1,7 +1,8 @@
 import Immutable from 'immutable'
+import { assign } from './functions'
 
-function immutable(StoreModel) {
-  StoreModel.config = {
+function immutable(StoreModel, overrides) {
+  StoreModel.config = assign({
     setState(currentState, nextState) {
       this.state = nextState
       return this.state
@@ -17,8 +18,8 @@ function immutable(StoreModel) {
 
     onDeserialize(data) {
       return Immutable.fromJS(data)
-    }
-  }
+    },
+  }, overrides)
 
   return StoreModel
 }

@@ -26,19 +26,18 @@ function doSetState(store, storeInstance, state) {
 }
 
 function createPrototype(proto, alt, key, extras) {
-  proto.boundListeners = []
-  proto.lifecycleEvents = {}
-  proto.actionListeners = {}
-  proto.publicMethods = {}
-  proto.handlesOwnErrors = false
-
   return fn.assign(proto, StoreMixin, {
     displayName: key,
     alt: alt,
     dispatcher: alt.dispatcher,
     preventDefault() {
       this.getInstance().preventDefault = true
-    }
+    },
+    boundListeners: [],
+    lifecycleEvents: {},
+    actionListeners: {},
+    publicMethods: {},
+    handlesOwnErrors: false,
   }, extras)
 }
 
@@ -47,13 +46,18 @@ export function createStoreConfig(globalConfig, StoreModel) {
     getState(state) {
       if (Array.isArray(state)) {
         return state.slice()
-      } else if (Object.prototype.toString.call(state) === '[object Object]') {
+      } else if (fn.isMutableObject(state)) {
         return fn.assign({}, state)
-      } else {
-        return state
       }
+
+      return state
     },
-    setState: fn.assign
+    setState(currentState, nextState) {
+      if (fn.isMutableObject(nextState)) {
+        return fn.assign(currentState, nextState)
+      }
+      return nextState
+    },
   }, globalConfig, StoreModel.config)
 }
 
@@ -70,7 +74,7 @@ export function createStoreFromObject(alt, StoreModel, key) {
     },
     setState(nextState) {
       doSetState(this, storeInstance, nextState)
-    }
+    },
   }, StoreModel))
 
   // bind the store listeners
@@ -78,14 +82,14 @@ export function createStoreFromObject(alt, StoreModel, key) {
   if (StoreProto.bindListeners) {
     StoreMixin.bindListeners.call(
       StoreProto,
-      StoreProto.bindListeners
+      StoreProto.bindListeners,
     )
   }
   /* istanbul ignore else */
   if (StoreProto.observe) {
     StoreMixin.bindListeners.call(
       StoreProto,
-      StoreProto.observe(alt)
+      StoreProto.observe(alt),
     )
   }
 
@@ -106,7 +110,10 @@ export function createStoreFromObject(alt, StoreModel, key) {
       StoreModel
     ),
     StoreProto.publicMethods,
-    { displayName: key }
+    {
+      displayName: key,
+      config: StoreModel.config,
+    }
   )
 
   return storeInstance
@@ -126,12 +133,13 @@ export function createStoreFromClass(alt, StoreModel, key, ...argsForClass) {
   }
 
   createPrototype(Store.prototype, alt, key, {
+    type: 'AltStore',
     getInstance() {
       return storeInstance
     },
     setState(nextState) {
       doSetState(this, storeInstance, nextState)
-    }
+    },
   })
 
   const store = new Store(...argsForClass)
@@ -148,7 +156,7 @@ export function createStoreFromClass(alt, StoreModel, key, ...argsForClass) {
     ),
     utils.getInternalMethods(StoreModel),
     config.publicMethods,
-    { displayName: key }
+    { displayName: key },
   )
 
   return storeInstance

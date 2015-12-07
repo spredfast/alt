@@ -1,5 +1,23 @@
 export const isFunction = x => typeof x === 'function'
 
+export function isMutableObject(target) {
+  const Ctor = target.constructor
+
+  return (
+    !!target
+    &&
+    typeof target === 'object'
+    &&
+    !Object.isFrozen(target)
+    &&
+    Object.prototype.toString.call(target) === '[object Object]'
+    &&
+    isFunction(Ctor)
+    &&
+    (Ctor instanceof Ctor || target.type === 'AltStore')
+  )
+}
+
 export function isPromise(obj) {
   return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function'
 }

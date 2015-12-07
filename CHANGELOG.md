@@ -1,5 +1,94 @@
 # Changelog
 
+## 0.17.8
+
+### Changed
+
+* Fix FSA dispatching [commit](https://github.com/goatslacker/alt/commit/ec3ccd8)
+* Stores created using an Object will now have a config. This gets rid of this [issue](https://github.com/goatslacker/alt-devtool/issues/20). [commit](https://github.com/goatslacker/alt/commit/d72eb9d)
+
+## 0.17.7
+
+### Changed
+
+* isPojo renamed to isMutableObject. [commit](https://github.com/goatslacker/alt/commit/69c773e)
+
+- This now checks if an object is frozen or not before attempting to delete keys from it.
+
+## 0.17.6
+
+### Added
+
+* Can dispatch FSA actions directly through alt.dispatch. [commit](https://github.com/goatslacker/alt/commit/243828c)
+
+## 0.17.5
+
+### Added
+
+* Makes alt FSA compliant. [commit](https://github.com/goatslacker/alt/commit/f4818db)
+
+### Changed
+
+* Removes the warning if nothing is dispatched. [commit](https://github.com/goatslacker/alt/commit/9dd8e09)
+* Fix regression for not setting state if reduce returns undefined. [commit](https://github.com/goatslacker/alt/commit/cebd8e8)
+
+## 0.17.4
+
+### Added
+
+* Allow dispatching action creators. [commit](https://github.com/goatslacker/alt/commit/cd54ed1)
+* Warn if nothing is dispatched. [commit](https://github.com/goatslacker/alt/commit/3430d56)
+* Pass store state to bootstrap lifecycle. [commit](https://github.com/goatslacker/alt/commit/b1a3f7a)
+* setState now handles values. [commit](https://github.com/goatslacker/alt/commit/f6be9c3)
+* ImmutableUtil supports bootstrapping Records and more. [commit](https://github.com/goatslacker/alt/commit/b1d6622)
+
+### Changed
+
+* contextTypes are now copied onto connectToStores. [commit](https://github.com/goatslacker/alt/commit/74f033a)
+* better typescript definitions. [commit](https://github.com/goatslacker/alt/commit/2ef5792)
+
+## 0.17.3
+
+### Changed
+
+* Moved hot load delete of stores up to remove the warning shown in console. [commit](https://github.com/goatslacker/alt/commit/d3befc5)
+
+## 0.17.2
+
+### Added
+
+* Add `onMount` handler for AltContainer. [commit](https://github.com/goatslacker/alt/commit/189e009)
+
+* Expose a reduce function for every store by default. [commit](https://github.com/goatslacker/alt/commit/ab19ceb)
+
+  If you're using reducers then this allows you to not ever use waitFor since you can just call store.reduce(store.getState(), payload) in order to derive data.
+
+* Allow values for store state. [commit](https://github.com/goatslacker/alt/commit/5e18e9c)
+
+  this.state can now be any valid JS value rather than always being an object.
+
+* Add some reducer utils. [commit](https://github.com/goatslacker/alt/commit/f672938)
+
+  These reducer utils can be used for easily working with reducer only stores
+
+
+### Changed
+
+* Return value from sources local method. [commit](https://github.com/goatslacker/alt/commit/3e8bb8a)
+
+* Delete stores on hot reload. [commit](https://github.com/goatslacker/alt/commit/8485eee)
+
+  Working with react hot loader is now simpler.
+
+* Make fp tools faster by pulling directly from state. [commit](https://github.com/goatslacker/alt/commit/2b5adb3)
+
+* Throw if listen does not get a function. [commit](https://github.com/goatslacker/alt/commit/193206f)
+
+* Change the connectToStores displayName. [commit](https://github.com/goatslacker/alt/commit/b2c0b31)
+
+* Allow listening to same action with multiple methods. [commit](https://github.com/goatslacker/alt/commit/a57d062)
+
+
 ## 0.17.1
 
 ### Changed

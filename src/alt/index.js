@@ -1,4 +1,4 @@
-/*global window*/
+/* global window */
 import { Dispatcher } from 'flux'
 
 import * as StateFunctions from './utils/StateFunctions'
@@ -26,12 +26,24 @@ class Alt {
   dispatch(action, data, details) {
     this.batchingFunction(() => {
       const id = Math.random().toString(18).substr(2, 16)
-      return this.dispatcher.dispatch({
-        id,
-        action,
-        data,
-        details
-      })
+
+      // support straight dispatching of FSA-style actions
+      if (action.hasOwnProperty('type') && action.hasOwnProperty('payload')) {
+        const fsaDetails = {
+          id: action.type,
+          namespace: action.type,
+          name: action.type,
+        }
+        return this.dispatcher.dispatch(
+          utils.fsa(id, action.type, action.payload, fsaDetails)
+        )
+      }
+
+      if (action.id && action.dispatch) {
+        return utils.dispatch(id, action, data, this)
+      }
+
+      return this.dispatcher.dispatch(utils.fsa(id, action, data, details))
     })
   }
 
@@ -49,6 +61,9 @@ class Alt {
     let key = iden || StoreModel.displayName || StoreModel.name || ''
     store.createStoreConfig(this.config, StoreModel)
     const Store = store.transformStore(this.storeTransforms, StoreModel)
+
+    /* istanbul ignore next */
+    if (module.hot) delete this.stores[key]
 
     if (this.stores[key] || !key) {
       if (this.stores[key]) {
@@ -177,8 +192,8 @@ class Alt {
   }
 
   bootstrap(data) {
-    StateFunctions.setAppState(this, data, (storeInst) => {
-      storeInst.lifecycle('bootstrap')
+    StateFunctions.setAppState(this, data, (storeInst, state) => {
+      storeInst.lifecycle('bootstrap', state)
       storeInst.emitChange()
     })
   }
