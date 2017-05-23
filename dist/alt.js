@@ -52,14 +52,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(1);
 
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/*global window*/
 	'use strict';
@@ -381,9 +381,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports['default'] = Alt;
 	module.exports = exports['default'];
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/**
 	 * Copyright (c) 2014-2015, Facebook, Inc.
@@ -397,9 +397,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports.Dispatcher = __webpack_require__(3)
 
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/*
 	 * Copyright (c) 2014, Facebook, Inc.
@@ -653,9 +653,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Dispatcher;
 
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Copyright (c) 2014, Facebook, Inc.
@@ -712,9 +712,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = invariant;
 
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -789,9 +789,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {});
 	}
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -830,9 +830,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return target;
 	}
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1009,9 +1009,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return storeInstance;
 	}
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/*eslint-disable*/
 	'use strict';
@@ -1074,9 +1074,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* istanbul ignore next */
 	function NoopClass() {}
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1213,9 +1213,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports['default'] = AltStore;
 	module.exports = exports['default'];
 
-/***/ },
+/***/ }),
 /* 10 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -1246,9 +1246,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = transmitter;
 
-/***/ },
+/***/ }),
 /* 11 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1453,9 +1453,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports['default'] = StoreMixin;
 	module.exports = exports['default'];
 
-/***/ },
+/***/ }),
 /* 12 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1550,7 +1550,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = exports['default'];
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

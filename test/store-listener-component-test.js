@@ -1,6 +1,6 @@
 import { jsdom } from 'jsdom'
 import Alt from '../dist/alt-with-runtime'
-import React from 'react/addons'
+import React from 'react'
 import AltContainer from '../components/AltContainer'
 import withAltContext from '../utils/withAltContext'
 import { assert } from 'chai'

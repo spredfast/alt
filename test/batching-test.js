@@ -1,6 +1,6 @@
 import { jsdom } from 'jsdom'
 import Alt from '../'
-import React from 'react/addons'
+import React from 'react'
 import { assert } from 'chai'
 import sinon from 'sinon'
 
