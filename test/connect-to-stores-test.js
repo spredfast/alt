@@ -1,6 +1,6 @@
 import { jsdom } from 'jsdom'
 import Alt from '../dist/alt-with-runtime'
-import React from 'react/addons'
+import React from 'react'
 import connectToStores from '../utils/connectToStores'
 import { assert } from 'chai'
 import sinon from 'sinon'

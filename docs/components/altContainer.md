@@ -282,7 +282,7 @@ In this example, Header, Body, and Footer will not re-render because we're retur
 
 ## `component`
 
-With this prop you can define which component you want to render within your AltContainer. If you have a single component and you're using required propTypes then this is a legitimate way of rendering the components without getting a warning about invalid propTypes from React due to cloneWithProps.
+With this prop you can define which component you want to render within your AltContainer. If you have a single component and you're using required propTypes then this is a legitimate way of rendering the components without getting a warning about invalid propTypes from React due to cloneElement.
 
 ```js
 <AltContainer component={Body} />

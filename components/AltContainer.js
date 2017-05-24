@@ -54,7 +54,7 @@
  *
  * Full docs available at http://goatslacker.github.io/alt/
  */
-var React = require('react/addons')
+var React = require('react')
 var mixinContainer = require('./mixinContainer')
 var assign = require('../utils/functions').assign
 
